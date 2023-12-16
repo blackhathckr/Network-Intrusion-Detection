@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Intrusion Detection System </title>
+    <link href="static/css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="header">
+        <h2>Network Intrusion Detection System </h2>
+        
+        <form action="predict" method="POST">
+          {% csrf_token %}
+          <div class="user-box">
+            <label for="model" style="font-weight: bold;">Attack</label>
+            <br />
+            <br />
+            <select name="attack" id="model">
+                <option value="0">Other</option>
+                <option value="1">Neptune</option>
+                <option value="2">Normal</option>
+                <option value="3" selected>Satan</option>
+            </select>
+            <br />
+            <br />
+            <br />
+          </div>
+          <div class="user-box">
+            <input type="text" name="count" required="required">
+            <label style="font-weight: bold;">Number of connections to the same destination host as the current connection in past 2 secs :</label>
+            
+          </div>
+          <div class="user-box">
+            <input type="text" name="dst_host_diff_srv_rate" required="required">
+            <label style="font-weight: bold;">The percentage of connections that were to different services,aggregated in dst_host_count :</label>
+          </div>
+          <div class="user-box">
+            <input type="text" name="dst_host_same_src_port_rate" required="required">
+            <label style="font-weight: bold;">The percentage of connections that were to the same source port,agg. in dst_host_srv_count :</label>
+          </div>
+          <div class="user-box">
+            <input type="text" name="dst_host_same_srv_rate" required="required">
+            <label style="font-weight: bold;">The percentage of connections that were to the same service,aggregated in dst_host_count :</label>
+          </div>
+          <div class="user-box">
+            <input type="text" name="dst_host_srv_count" required="required">
+            <label style="font-weight: bold;">Number of connections having the same port number :</label>
+          </div>
+          <div class="user-box">
+            <label for="model" style="font-weight: bold;">Status of the connection –Normal or Error :</label>
+            <br />
+            <br />
+            <select name="flag" id="model">
+                <option value="0">Other</option>
+                <option value="1" selected>S0</option>
+                <option value="2">SF</option>
+            </select>
+            <br />
+            <br />
+            <br />
+          </div>
+          <div class="user-box">
+            <input type="text" name="last_flag" required="required"="" >
+            <label style="font-weight: bold;">Last Flag :</label>
+          </div>
+          <div class="user-box">
+            <input type="text" name="logged_in" required="required"="" >
+            <label style="font-weight: bold;">1 if successfully logged in; 0 otherwise :</label>
+          </div>
+          <div class="user-box">
+            <input type="text" name="same_srv_rate" required="required"="" >
+            <label style="font-weight: bold;">The percentage of connections that were to the same service,aggregated in count :</label>
+          </div>
+          <div class="user-box">
+            <input type="text" name="serror_rate" required="required"="" >
+            <label style="font-weight: bold;">The percentage of connections that have activated the flag (4) s0, s1, s2 or s3,agg. in count :</label>
+          </div>
+          <div class="user-box">
+            <label for="model" style="font-weight: bold;">Destination network service used http or not :</label>
+            <br />
+            <br />
+            <select name="service_http" id="model">
+                <option value="0">No</option>
+                <option value="1" selected>Yes</option>
+            </select>
+            
+          </div>
+          <button type="submit" id="submit">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Predict
+          </button>
+          <br />
+          <br />
+        </form>
+      </div>
+      {% if prediction %}
+       <h3 style="color: white;font-weight: bold;font-family: Arial, Helvetica, sans-serif;"> Attack Class : <b style="color:red;font-weight: bold;font-family: Arial, Helvetica, sans-serif;">{{ prediction }}</b>  </h3>
+      {% endif %}
+      <script src=""></script>
+</body>
+</html>
